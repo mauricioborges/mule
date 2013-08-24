@@ -12,8 +12,17 @@
     <packaging>jar</packaging>
     <name>Mule Core</name>
     <description>Mule server and core classes</description>
-
+    <properties>
+        <maven-build-utils.activationProfiles>perfstats</maven-build-utils.activationProfiles>
+    </properties>
     <build>
+        <extensions>
+            <extension>
+                <groupId>com.github.lkoskela</groupId>
+                <artifactId>maven-build-utils</artifactId>
+                <version>1.5-SNAPSHOT</version>
+            </extension>
+        </extensions>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -209,4 +218,12 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+    <profiles>
+        <profile>
+            <id>perfstats</id>
+            <properties>
+                <maven-build-utils.activate-timeline>true</maven-build-utils.activate-timeline>
+            </properties>
+        </profile>
+    </profiles>
 </project>
