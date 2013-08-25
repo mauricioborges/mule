@@ -51,6 +51,7 @@ Also, I thought about improving the profiling using one of the following approac
 * common dependencies could be moved to an external pom, because the pom.xml could be simpler and smaller
 * fix some links to external websites
 * Remove the "all-modules" pom.xml, and automatically generate the pom.xml from the list of modules.
+* Remove version tag from modules
 
 
 ### Improvement 1: Include a coverage check
