@@ -73,6 +73,7 @@ If the code coverage is not a useful approach, so I suggest to remove cobertura:
 * Despite some discussions on the necessity of the code coverage and the misuse of it, the code coverage can be used to check if the time spent on test execution is consistent with the codebase size and complexity; 
 * Organizing the pom.xml, to remove unnecessary and time-spending executions (in case of removing cobertura:clean).
 
+
 ### Improvement 2: Generate a surefire report to check possible bottlenecks
 
 After running the surefire test report I've checked that 9% of the time (~50s) was spent on ~3% of the tests (75/2580), all of them into package org.mule.util.store. That's a possible example of package tested with too much time spending (pending analysis). So I suggest to create a profile for "test profiling analysis", allowing 
@@ -82,6 +83,9 @@ After running the surefire test report I've checked that 9% of the time (~50s) w
 * Generating this report can be useful to check what tests (as the example above) are slowing the build running, allowing refactoring of these tests when feasible.
 * It enables a quantitative approach to guide the test execution analysis.
 
+#### Implementation
+I've changed the surefire-report to include a list of all methods, reverse sorted by spent time in last execution. I'll extract it from surefire-report plugin and create my own, extending it, but for testing purpose is currently good.
+
 ### Improvement 3: Break the tests into groups
 
 Using Junit org.junit.experimental.categories.Category resource, I suggest to create categories by speed execution (Slow, Slower, Fast, e.g.), and apply them gradually to the slower tests, allowing a filtering per speed.
@@ -89,6 +93,9 @@ Using Junit org.junit.experimental.categories.Category resource, I suggest to cr
 #### Benefits/Motivation
 
 * classifying the tests according to the speed would allow filtering the tests pending on refactoring/analysis, as well as not executing them when on daily development (before commit).
+
+#### Implementation
+I will (not made yet) use the same mechanism i created in the improvement 2 to parse the test files and configure @Category annotations programmatically.
 
 ### Improvement 4: Run parallel JUnit tests
 
